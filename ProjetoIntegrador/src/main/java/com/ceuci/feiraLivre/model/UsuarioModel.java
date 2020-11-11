@@ -9,25 +9,47 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "usuario")
+@Table(name="usuario")
 public class UsuarioModel {
-	
+
+	@Column
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
 	@Column
-	private String nome;
+	@NotNull
+	public String nome;
 	
-	@NotNull
 	@Column
-	private String email;
+	@NotNull
+	public String email;
 	
-	@NotNull
 	@Column
-	private String senha;
+	@NotNull
+	public String senha;
+	
+	@Column
+	@NotNull
+	public String cpf;
+	
+//	@OneToMany
+//	@JsonIgnoreProperties("usuario")
+//	private PedidoModel pedido;
+	
+	public String getCpf() {
+		return cpf;
+	}
 
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
+
+
+
+	
 	public Long getId() {
 		return id;
 	}
@@ -59,4 +81,11 @@ public class UsuarioModel {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	
+	
+	
+	
+	
+	
 }
