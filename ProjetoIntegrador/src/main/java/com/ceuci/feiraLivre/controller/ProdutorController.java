@@ -39,7 +39,7 @@ public class ProdutorController {
 				.orElse(ResponseEntity.notFound().build());
 				
 	}
-	@GetMapping("/titulo/{titulo}")
+	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<ProdutorModel>> getByTitulo(@PathVariable String nome){
 		return ResponseEntity.ok(repository.findAllByNomeContainingIgnoreCase(nome));
 	}

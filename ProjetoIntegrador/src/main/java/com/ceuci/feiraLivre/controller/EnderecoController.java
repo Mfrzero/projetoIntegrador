@@ -37,11 +37,16 @@ public class EnderecoController {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 
 	}
-
-	@GetMapping(value = "/cidadeS")
-	public ResponseEntity<List<EnderecoModel>> findAllByCidadeS(){
-		return ResponseEntity.ok(repository.findAllByCidadeS());
+	
+	@GetMapping("/cidades/{cidade}")
+	public ResponseEntity<List<EnderecoModel>> getByCidade(@PathVariable String cidade){
+		return ResponseEntity.ok(repository.findAllByCidadeContainingIgnoreCase(cidade));
 	}
+
+//	@GetMapping(value = "/cidadeS")
+//	public ResponseEntity<List<EnderecoModel>> findAllByCidadeS(){
+//		return ResponseEntity.ok(repository.findAllByCidadeS());
+//	}
 
 	@PostMapping
 	public ResponseEntity<EnderecoModel> post(@RequestBody EnderecoModel endereco) {
