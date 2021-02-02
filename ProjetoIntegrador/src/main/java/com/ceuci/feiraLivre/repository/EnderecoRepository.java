@@ -9,9 +9,8 @@ import com.ceuci.feiraLivre.model.EnderecoModel;
 
 public interface EnderecoRepository extends JpaRepository<EnderecoModel, Long>{
 
-
-	public List<EnderecoModel> findAllByCidadeContainingIgnoreCase (String cidade);
+	@Query(value = "select * from endereco where cidade like 'S%' ", nativeQuery=true)
+	List<EnderecoModel> findAllByCidadeS();
 	
-//	@Query(value = "select * from endereco where cidade like 'S%' ", nativeQuery=true)
-//	List<EnderecoModel> findAllByCidadeS();
+	public List<EnderecoModel> findAllByCidadeContainingIgnoreCase (String cidade);
 }

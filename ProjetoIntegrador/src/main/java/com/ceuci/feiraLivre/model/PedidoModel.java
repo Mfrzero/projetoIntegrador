@@ -1,19 +1,28 @@
 package com.ceuci.feiraLivre.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "pedido")
 public class PedidoModel {
 
-	@Column
+	//ATRIBUTOS
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -21,16 +30,29 @@ public class PedidoModel {
 	@Column
 	private double valor;
 	
-	@Column
-	private Date data;
-	
-//	@Column
-//	@JsonIgnoreProperties("pedido")
-//	private List<ProdutoModel> produto;
+	@Temporal(TemporalType.TIMESTAMP)
+    private Date data = new java.sql.Date(System.currentTimeMillis());
 	
 	@Column
 	private int quantidadeItens;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("pedido")
+	private UsuarioModel usuario;
+	
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("pedido")
+	private List<ItensModel> itens = new ArrayList<ItensModel>();
+	
+	
+	//CONSTRUTORES
+	public PedidoModel() {}
+	
+	public PedidoModel(Long id) {
+		this.id = id;
+	}
+
+	//GETTERS AND SETTERS
 	public Long getId() {
 		return id;
 	}
@@ -55,14 +77,6 @@ public class PedidoModel {
 		this.data = data;
 	}
 
-//	public List<ProdutoModel> getProduto() {
-//		return produto;
-//	}
-//
-//	public void setProduto(List<ProdutoModel> produto) {
-//		this.produto = produto;
-//	}
-
 	public int getQuantidadeItens() {
 		return quantidadeItens;
 	}
@@ -70,5 +84,21 @@ public class PedidoModel {
 	public void setQuantidadeItens(int quantidadeItens) {
 		this.quantidadeItens = quantidadeItens;
 	}
-	
+
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<ItensModel> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensModel> itens) {
+		this.itens = itens;
+	}
+
 }
